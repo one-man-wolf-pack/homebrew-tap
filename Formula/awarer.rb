@@ -7,8 +7,8 @@ class Awarer < Formula
   # The tag names the release and the revision pins the exact commit it pointed at, so a
   # moved tag cannot change what this formula compiles.
   url "https://github.com/one-man-wolf-pack/awarer.git",
-      tag:      "v0.3.0",
-      revision: "8580a291c4548fd29a5be5b0719e4f48e38d242d"
+      tag:      "v0.3.1",
+      revision: "da0b5185973d2779d729586ccc9c088afebe504e"
   license "Apache-2.0"
 
   depends_on "go" => :build
@@ -17,12 +17,12 @@ class Awarer < Formula
     ENV["CGO_ENABLED"] = "0"
     # The framed stamp is the one injection point awa reads; -s -w and -trimpath come from
     # std_go_args. A build without it reports 0.0.0-dev, which is not what a tap installs.
-    ldflags = "-X awarer/internal/app.versionStamp=awa.version=v0.3.0"
+    ldflags = "-X awarer/internal/app.versionStamp=awa.version=v0.3.1"
     system "go", "build", *std_go_args(output: bin/"awa", ldflags: ldflags), "./cmd/awa"
     pkgshare.install "LICENSE", "THIRD_PARTY_NOTICES"
   end
 
   test do
-    assert_match "v0.3.0", shell_output("#{bin}/awa version")
+    assert_match "v0.3.1", shell_output("#{bin}/awa version")
   end
 end
